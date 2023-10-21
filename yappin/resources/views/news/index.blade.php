@@ -14,8 +14,8 @@
             <img src="user_avatar.png" alt="User Avatar" width="64" height="64" class="rounded-circle mr-3">
             <div class="w-100">
                 <input type="text" name="title" class="form-control mb-2" placeholder="Yapp Title">
-                <input type="text" name="content" class="form-control mb-2" placeholder="What's happening?">
-                <button type="submit" class="btn btn-primary ml-auto">Yapp</button> <!-- Use ml-auto to push the button to the right -->
+                <input type="text" name="content" class="form-control mb-2" placeholder="What is Yappin?!">
+                <button type="submit" class="btn btn-primary ml-auto">Yapp</button>
             </div>
         </div>
     </form>
