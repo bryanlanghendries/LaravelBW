@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\Models\News;
+use App\Models\Post;
 
 use Auth;
 
-class NewsController extends Controller
+class PostController extends Controller
 {
 
     public function __construct(){
@@ -18,8 +18,8 @@ class NewsController extends Controller
 
     public function index()
     {
-        $news = News::latest()->get();
-        return view('news.index', compact('news'));
+        $posts = Post::latest()->get();
+        return view('posts.index', compact('posts'));
     }
 
     public function store(Request $request)
@@ -29,29 +29,29 @@ class NewsController extends Controller
             'content' => 'required|min:5',
         ]);
 
-        $news = new News;
-        $news->title = $validated['title'];
-        $news->content = $validated['content'];
-        $news->user_id = Auth::user()->id;
-        $news->save();
+        $post = new Post;
+        $post->title = $validated['title'];
+        $post->content = $validated['content'];
+        $post->user_id = Auth::user()->id;
+        $post->save();
 
         return redirect()->route('index')->with('status', 'Yapp posted');
     }
 
     public function edit($id) {
-        $news = News::findOrFail($id);
+        $post = Post::findOrFail($id);
 
-        if($news->user_id != Auth::user()->id){
+        if($post->user_id != Auth::user()->id){
             abort(403);
         }
 
-        return view('news.edit', compact('news'));
+        return view('posts.edit', compact('post'));
     }
 
     public function update($id, Request $request) {
-        $news = News::findOrFail($id);
+        $post = Post::findOrFail($id);
     
-        if ($news->user_id != Auth::user()->id) {
+        if ($post->user_id != Auth::user()->id) {
             abort(403);
         }
     
@@ -61,11 +61,11 @@ class NewsController extends Controller
         ]);
     
         // Check if the content has changed
-        if ($news->title != $validated['title'] || $news->content != $validated['content']) {
-            $news->title = $validated['title'];
-            $news->content = $validated['content'];
-            $news->is_edited = true;
-            $news->save();
+        if ($post->title != $validated['title'] || $post->content != $validated['content']) {
+            $post->title = $validated['title'];
+            $post->content = $validated['content'];
+            $post->is_edited = true;
+            $post->save();
             return redirect()->route('index')->with('status', 'Yapp edited');
         } else {
             // Content hasn't changed, so no need to update

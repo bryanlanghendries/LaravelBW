@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +14,9 @@ use App\Http\Controllers\NewsController;
 |
 */
 
-Route::get('/', [NewsController::class, 'index'])->name('index');
+Route::get('/', [PostController::class, 'index'])->name('index');
 
-Route::resource('news', NewsController::class);
+Route::resource('posts', PostController::class);
 
 Auth::routes();
 
