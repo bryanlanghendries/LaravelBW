@@ -32,27 +32,20 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-start">
                 <div class="d-flex align-items-center">
-                    <img src="user_avatar.png" alt="User Avatar" width="64" height="64" class="rounded-circle mr-3">
-                    <div> 
-                        <h5 class="mb-1">{{ $post->user->name }}</h5> 
+                    <a href="{{ route('profile', $post->user->name) }}" style="text-decoration: none; color: inherit;">
+                        <img src="user_avatar.png" alt="User Avatar" width="64" height="64" class="rounded-circle mr-3">
+                        <h5 class="mb-1" onclick="window.location='{{ route('profile', $post->user_id) }}';" style="cursor: pointer;">
+                            {{ $post->user->name }}
+                        </h5>
+                    </a>
+                </div>
+                <div>
+                    <div>
                         <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
                         @if ($post->is_edited)
                             <small class="font-weight-bold"> *edited* </small>
                         @endif
                     </div>
-                </div>
-                
-                <div>
-                    @auth
-                        @if ($post->user_id == Auth::user()->id)
-                            <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary mr-2">Edit</a>
-                            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        @endif
-                    @endauth
                 </div>
             </div>
             <br>
@@ -75,6 +68,7 @@
         </div>
     </div> 
 @endforeach
+
 
 
     </div> 
