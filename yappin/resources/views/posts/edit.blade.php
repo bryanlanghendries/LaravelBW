@@ -8,7 +8,7 @@
                     <div class="card-header">Edit Post</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('post.update', $post->id) }}" class="mb-4">
+                        <form method="POST" action="{{ route('posts.update', $post->id) }}" class="mb-4">
                             @csrf
                             @method('PATCH')
                             <div class="d-flex">
