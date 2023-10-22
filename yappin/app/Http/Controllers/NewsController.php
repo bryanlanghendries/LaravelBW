@@ -11,9 +11,14 @@ use Auth;
 
 class NewsController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth', ['except' => ['index']]);
+    }
+
     public function index()
     {
-        $news = News::orderBy("created_at","desc")->paginate(10);
+        $news = News::latest()->get();
         return view('news.index', compact('news'));
     }
 
@@ -30,6 +35,42 @@ class NewsController extends Controller
         $news->user_id = Auth::user()->id;
         $news->save();
 
-        return redirect()->route('index')->with('status', 'Yapp added');
+        return redirect()->route('index')->with('status', 'Yapp posted');
     }
+
+    public function edit($id) {
+        $news = News::findOrFail($id);
+
+        if($news->user_id != Auth::user()->id){
+            abort(403);
+        }
+
+        return view('news.edit', compact('news'));
+    }
+
+    public function update($id, Request $request) {
+        $news = News::findOrFail($id);
+    
+        if ($news->user_id != Auth::user()->id) {
+            abort(403);
+        }
+    
+        $validated = $request->validate([
+            'title' => 'required|min:3',
+            'content' => 'required|min:5',
+        ]);
+    
+        // Check if the content has changed
+        if ($news->title != $validated['title'] || $news->content != $validated['content']) {
+            $news->title = $validated['title'];
+            $news->content = $validated['content'];
+            $news->is_edited = true;
+            $news->save();
+            return redirect()->route('index')->with('status', 'Yapp edited');
+        } else {
+            // Content hasn't changed, so no need to update
+            return redirect()->route('index')->with('status', 'No changes were made');
+        }
+    }
+    
 }

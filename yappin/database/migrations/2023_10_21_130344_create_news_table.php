@@ -16,7 +16,8 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('title');
             $table->text('content');
-            $table->string('cover_image')->nullable();
+            $table->string('cover_image')->nullable();  
+            $table->boolean('is_edited')->default(false);
             $table->timestamps();
         });
     }

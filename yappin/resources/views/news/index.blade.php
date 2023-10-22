@@ -27,21 +27,45 @@
 
 
 
-        @foreach($news as $n)
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
+@foreach($news as $newsart)
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div class="d-flex align-items-center">
                     <img src="user_avatar.png" alt="User Avatar" width="64" height="64" class="rounded-circle mr-3">
-                    <div> <h5 class="mb-1">{{ $n->user->name }}</h5> <small class="text-muted">{{
-                    $n->created_at->diffForHumans()
-                    }}</small>
-                    </div> </div> <h3>{{ $n->title }}</h3>
-                    <p class="card-text">{{ $n->content }}</p>
-                    @if ($n->cover_image)
-                    <img src="{{ $n->cover_image }}" alt="News Image" class="img-fluid">
-                    @endif
+                    <div> 
+                        <h5 class="mb-1">{{ $newsart->user->name }}</h5> 
+                        <small class="text-muted">{{ $newsart->created_at->diffForHumans() }}</small>
+                        @if ($newsart->is_edited)
+                        <small class="text-muted"> *edited* </small>
+                        @endif
+                    </div>
                 </div>
-                </div> @endforeach </div> </div> </div>
+                <div>
+                    @auth
+                        @if ($newsart->user_id == Auth::user()->id)
+                            <a href="{{ route('news.edit', $newsart->id) }}" class="btn btn-primary mr-2">Edit</a>
+                            <form action="{{ route('news.destroy', $newsart->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        @endif
+                    @endauth
+                </div>
+            </div>
+            <h3>{{ $newsart->title }}</h3>
+            <p class="card-text">{{ $newsart->content }}</p>
+            @if ($newsart->cover_image)
+                <img src="{{ $newsart->cover_image }}" alt="News Image" class="img-fluid">
+            @endif
+        </div>
+    </div> 
+@endforeach
+
+    </div> 
+</div> 
+</div>
             </div>
         </div>
-        @endsection
+@endsection
