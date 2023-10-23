@@ -21,6 +21,18 @@
                         @if (Auth::check() && Auth::user()->id === $user->id)
                             <a href="" class="btn btn-primary">Edit Profile</a>
                         @endif
+
+                        <h2> Posts </h2>
+
+                        @foreach($user->posts as $post)
+                         <a href="{{ route('posts.show', $post->id)}}"> {{ $post->title }} </a> <br>
+                        @endforeach
+
+                        <h2> Likes </h2>
+
+                        @foreach($user->likes as $like)
+                         <a href="{{ route('posts.show', $like->post->id)}}"> {{ $like->post->title }} </a> <br>
+                        @endforeach
                     </div>
                 </div>
             </div>

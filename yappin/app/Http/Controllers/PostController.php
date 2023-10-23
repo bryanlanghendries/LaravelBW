@@ -72,5 +72,9 @@ class PostController extends Controller
             return redirect()->route('index')->with('status', 'No changes were made');
         }
     }
-    
+
+    public function show($id) {
+     $post = Post::findOrFail($id);
+     return view('posts.show', compact('post'));
+    }    
 }

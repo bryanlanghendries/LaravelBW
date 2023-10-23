@@ -9,11 +9,18 @@ class Post extends Model
 {
     use HasFactory;
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo('App\Models\User');
     }
 
-    public function likes(){
+    public function likes()
+    {
         return $this->hasMany('App\Models\Like');
+    }
+
+    public function likedByUser($user)
+    {
+        return $user && $this->likes->where('user_id', $user->id)->isNotEmpty();
     }
 }
