@@ -14,7 +14,7 @@
                     @endif
 
                     <div class="text-center">
-                        <img src="user_avatar" alt="{{ $user->name }}" class="img-thumbnail mb-3" style="width: 150px;">
+                        <img src="{{ asset('user_avatar.png') }}" alt="{{ $user->name }}" class="img-thumbnail mb-3" style="width: 150px;">
                         <h2>{{ $user->name }}</h2>
                         <p>{{ $user->biography }}</p>
 

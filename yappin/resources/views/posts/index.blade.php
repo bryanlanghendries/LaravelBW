@@ -11,7 +11,7 @@
     <form method="POST" action="{{ route('posts.store') }}" class="mb-4">
         @csrf
         <div class="d-flex">
-            <img src="user_avatar.png" alt="User Avatar" width="64" height="64" class="rounded-circle mr-3">
+            <img src="{{ asset('user_avatar.png') }}" alt="User Avatar" width="64" height="64" class="rounded-circle mr-3">
             <div class="w-100">
                 <input type="text" name="title" class="form-control mb-2" placeholder="Yapp Title">
                 <input type="text" name="content" class="form-control mb-2" placeholder="What is Yappin?!">
@@ -46,6 +46,19 @@
                             <small class="font-weight-bold"> *edited* </small>
                         @endif
                     </div>
+
+                    <div>
+                    @auth
+                        @if ($post->user_id == Auth::user()->id)
+                            <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary mr-2">Edit</a>
+                            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        @endif
+                    @endauth
+                </div>
                 </div>
             </div>
             <br>
@@ -58,7 +71,7 @@
             <div class="d-flex justify-content-between">
                 <div>
                     {{ $post->likes->count() }} {{ Str::plural('like', $post->likes->count()) }}
-                    <a href="{{ route('like', $post->id) }}" class="text-primary mr-2">Like</a>
+                    <a href="{{ route('like', $post->id) }}" class="text-primary mr-2">{{ 'like' }}</a>
                 </div>
                 <div>
                     <span class="mr-3">0 comments</span>

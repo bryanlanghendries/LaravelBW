@@ -23,7 +23,7 @@
             <div class="container">
                 
                 <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="user_avatar.png" alt="User Avatar" width="48" height="48" class="rounded-circle mr-3">
+                <img src="{{ asset('user_avatar.png') }}" alt="Website Logo" width="48" height="48" class="rounded-circle mr-3">
                     Yappin
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
