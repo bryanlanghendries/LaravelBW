@@ -24,13 +24,11 @@
                     </div>
 
                     <div class="my-4">
-                        <h2>Posts</h2>
+                        <h2>Yapps</h2>
                         <ul class="list-group">
                             @foreach($user->posts as $post)
                              <li class="list-group-item">
                                 <a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
-                                <p class="ml-2 d-inline">by</p>
-                                <a href="{{ route('profile', $user->name) }}" class="ml-2">{{ $user->name }}</a>
                              </li>
                             @endforeach
 
