@@ -75,7 +75,7 @@
                 </div>
                 <div>
                     <span class="mr-3">0 comments</span>
-                    <a href="#" class="text-primary">Comment</a>
+                    <a href="{{ route('posts.show', $post->id)}}" class="text-primary">Comment</a>
                 </div>
             </div>
         </div>

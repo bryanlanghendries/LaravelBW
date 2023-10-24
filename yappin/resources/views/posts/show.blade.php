@@ -30,14 +30,24 @@
                 @auth
                     @if ($post->user_id == Auth::user()->id)
                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary mr-2">Edit</a>
-                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: inline;">
+                        <form method="POST" action="{{ route('posts.destroy', $post->id) }}" style="display: inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Yapp?');">Delete</button>
                         </form>
                     @endif
                 @endauth
             </div>
+
+            @auth
+            @if(Auth::user()->is_admin && Auth::user()->id !== $post->user_id)
+                <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove this Yapp?');"> Remove </button>
+                </form>
+            @endif
+            @endauth
             </div>
         </div>
         <br>

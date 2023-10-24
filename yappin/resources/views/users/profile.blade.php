@@ -21,18 +21,33 @@
                         @if (Auth::check() && Auth::user()->id === $user->id)
                             <a href="" class="btn btn-primary">Edit Profile</a>
                         @endif
+                    </div>
 
-                        <h2> Posts </h2>
+                    <div class="my-4">
+                        <h2>Posts</h2>
+                        <ul class="list-group">
+                            @foreach($user->posts as $post)
+                             <li class="list-group-item">
+                                <a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
+                                <p class="ml-2 d-inline">by</p>
+                                <a href="{{ route('profile', $user->name) }}" class="ml-2">{{ $user->name }}</a>
+                             </li>
+                            @endforeach
 
-                        @foreach($user->posts as $post)
-                         <a href="{{ route('posts.show', $post->id)}}"> {{ $post->title }} </a> <br>
-                        @endforeach
+                        </ul>
+                    </div>
 
-                        <h2> Likes </h2>
-
-                        @foreach($user->likes as $like)
-                         <a href="{{ route('posts.show', $like->post->id)}}"> {{ $like->post->title }} </a> <br>
-                        @endforeach
+                    <div class="my-4">
+                        <h2>Likes</h2>
+                        <ul class="list-group">
+                            @foreach($user->likes as $like)
+                                <li class="list-group-item">
+                                    <a href="{{ route('posts.show', $like->post->id) }}">{{ $like->post->title }}</a>
+                                    <p class="ml-2 d-inline">by</p>
+                                    <a href="{{ route('profile', $user->name) }}" class="ml-2">{{ $user->name }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>

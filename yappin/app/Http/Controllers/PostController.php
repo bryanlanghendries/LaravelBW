@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
-
+use App\Models\Like;
 use Auth;
 
 class PostController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('auth', ['except' => ['index']]);
+        $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
     public function index()
@@ -76,5 +76,26 @@ class PostController extends Controller
     public function show($id) {
      $post = Post::findOrFail($id);
      return view('posts.show', compact('post'));
-    }    
+    }
+
+    public function destroy($id) {
+
+        // Find post by id
+        $post = Post::findOrFail($id);
+
+        // Check if admin or owner of post
+        if(!Auth::user()->is_admin && Auth::user()->id !== $post->user_id){
+            abort(403, 'You are not  authorized to remove this Yapp');
+        }
+
+        // Delete all likes from post
+        Like::where('post_id', '=' , $post->id)->delete();
+
+        // Delete post
+        $post->delete();
+
+        // Return to index page with status
+        return redirect()->route('index')->with('status','Yapp deleted');
+    }
+
 }
