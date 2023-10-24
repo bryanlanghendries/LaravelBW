@@ -12,7 +12,11 @@
                             @csrf
                             @method('PATCH')
                             <div class="d-flex">
-                            <img src="{{ asset('user_avatar.png') }}" alt="User Avatar" width="64" height="64" class="rounded-circle mr-3">
+                                @if ($post->user->avatar)
+                                <img src="{{ asset('storage/avatars/'.$post->user->avatar) }}" alt="{{ $post->user->name }}" class="img-thumbnail" style="width: 150px">
+                            @else
+                                <img src="{{ asset('user_avatar.png') }}" alt="{{ $post->user->name }}" class="img-thumbnail" style="width: 150px">
+                            @endif
                                 <div class="w-100">
                                     <input type="text" name="title" class="form-control mb-2" placeholder="Yapp Title" value="{{ $post->title }}">
                                     <input type="text" name="content" class="form-control mb-2" placeholder="What is Yappin?!" value="{{ $post->content }}">

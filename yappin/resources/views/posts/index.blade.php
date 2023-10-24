@@ -11,7 +11,6 @@
     <form method="POST" action="{{ route('posts.store') }}" class="mb-4">
         @csrf
         <div class="d-flex">
-            <img src="{{ asset('user_avatar.png') }}" alt="User Avatar" width="64" height="64" class="rounded-circle mr-3">
             <div class="w-100">
                 <input type="text" name="title" class="form-control mb-2" placeholder="Yapp Title">
                 <input type="text" name="content" class="form-control mb-2" placeholder="What is Yappin?!">
@@ -33,10 +32,14 @@
             <div class="d-flex justify-content-between align-items-start">
                 <div class="d-flex align-items-center">
                     <a href="{{ route('profile', $post->user->name) }}" style="text-decoration: none; color: inherit;">
-                        <img src="{{ asset('user_avatar.png') }}" alt="User Avatar" width="64" height="64" class="rounded-circle mr-3">
-                        <h5 class="mb-1" onclick="window.location='{{ route('profile', $post->user_id) }}';" style="cursor: pointer;">
+                        @if ($post->user->avatar)
+                        <img src="{{ asset('storage/avatars/'.$post->user->avatar) }}" alt="{{ $post->user->name }}" class="img-thumbnail" style="width: 150px">
+                    @else
+                        <img src="{{ asset('user_avatar.png') }}" alt="{{ $post->user->name }}" class="img-thumbnail" style="width: 150px">
+                    @endif
+                        <strong class="mb-1" onclick="window.location='{{ route('profile', $post->user_id) }}';" style="font-size:24px; cursor: pointer;">
                             {{ $post->user->name }}
-                        </h5>
+                        </strong>
                     </a>
                 </div>
                 <div>

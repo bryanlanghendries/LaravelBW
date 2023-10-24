@@ -24,6 +24,10 @@ Route::get('like/{postid}', [LikeController::class,'like'])->name('like');
 
 Route::get('user/{name}', [UserController::class, 'profile'])->name('profile');
 
+Route::get('user/{name}/edit', [UserController::class, 'edit'])->name('profile.edit');
+
+Route::patch('user/{name}', [UserController::class,'update'])->name('profile.update');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

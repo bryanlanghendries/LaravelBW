@@ -14,14 +14,22 @@
                     @endif
 
                     <div class="text-center">
-                        <img src="{{ asset('user_avatar.png') }}" alt="{{ $user->name }}" class="img-thumbnail mb-3" style="width: 150px;">
+                        @if ($user->avatar)
+                        <img src="{{ asset("storage/avatars/$user->avatar") }}" alt="{{ $user->name }}" class="img-thumbnail" style="width: 150px">
+                    @else
+                        <img src="{{ asset('user_avatar.png') }}" alt="{{ $user->name }}" class="img-thumbnail" style="width: 150px">
+                    @endif
                         <h2>{{ $user->name }}</h2>
                         <p>{{ $user->biography }}</p>
-
+                        @if ($user->birthday)
+                            <p>Born on {{ $user->birthday }}</p>
+                        @endif
+                    
                         @if (Auth::check() && Auth::user()->id === $user->id)
-                            <a href="" class="btn btn-primary">Edit Profile</a>
+                            <a href="{{ route('profile.edit', $user->name) }}" class="btn btn-primary">Edit Profile</a>
                         @endif
                     </div>
+                    
 
                     <div class="my-4">
                         <h2>Yapps</h2>
