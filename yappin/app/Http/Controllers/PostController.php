@@ -12,7 +12,8 @@ use Auth;
 class PostController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
@@ -29,7 +30,17 @@ class PostController extends Controller
             'content' => 'required|min:5',
         ]);
 
+        if (!$validated) {
+            return redirect()->route('index')->with('status', 'Yapp not posted');
+        }
+
         $post = new Post;
+
+        if ($request->hasFile('cover')) {
+            $coverImagePath = $request->file('cover')->store('public/covers');
+            $post->cover_image = str_replace('public/', '', $coverImagePath);
+        }
+
         $post->title = $validated['title'];
         $post->content = $validated['content'];
         $post->user_id = Auth::user()->id;
@@ -38,28 +49,30 @@ class PostController extends Controller
         return redirect()->route('index')->with('status', 'Yapp posted');
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $post = Post::findOrFail($id);
 
-        if($post->user_id != Auth::user()->id){
+        if ($post->user_id != Auth::user()->id) {
             abort(403);
         }
 
         return view('posts.edit', compact('post'));
     }
 
-    public function update($id, Request $request) {
+    public function update($id, Request $request)
+    {
         $post = Post::findOrFail($id);
-    
+
         if ($post->user_id != Auth::user()->id) {
             abort(403);
         }
-    
+
         $validated = $request->validate([
             'title' => 'required|min:3',
             'content' => 'required|min:5',
         ]);
-    
+
         // Check if the content has changed
         if ($post->title != $validated['title'] || $post->content != $validated['content']) {
             $post->title = $validated['title'];
@@ -73,29 +86,31 @@ class PostController extends Controller
         }
     }
 
-    public function show($id) {
-     $post = Post::findOrFail($id);
-     return view('posts.show', compact('post'));
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('posts.show', compact('post'));
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
 
         // Find post by id
         $post = Post::findOrFail($id);
 
         // Check if admin or owner of post
-        if(!Auth::user()->is_admin && Auth::user()->id !== $post->user_id){
+        if (!Auth::user()->is_admin && Auth::user()->id !== $post->user_id) {
             abort(403, 'You are not  authorized to remove this Yapp');
         }
 
         // Delete all likes from post
-        Like::where('post_id', '=' , $post->id)->delete();
+        Like::where('post_id', '=', $post->id)->delete();
 
         // Delete post
         $post->delete();
 
         // Return to index page with status
-        return redirect()->route('index')->with('status','Yapp deleted');
+        return redirect()->route('index')->with('status', 'Yapp deleted');
     }
 
 }
