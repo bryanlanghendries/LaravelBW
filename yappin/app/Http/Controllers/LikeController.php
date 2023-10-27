@@ -8,6 +8,7 @@ use App\Models\Like;
 use App\Models\Post;
 
 use Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class LikeController extends Controller
 {
@@ -32,7 +33,7 @@ class LikeController extends Controller
             $like->save();
         }
     
-        return redirect()->route('index');
+        return Redirect::back()->with('status','Yapp Liked !');
     }
     
 }
