@@ -16,7 +16,6 @@ return new class extends Migration
             $table->integer('user_id');
             $table->integer('post_id');
             $table->text('content');
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@
                             @method('PATCH')
                             <div class="d-flex">
                                 @if ($post->user->avatar)
-                                <img src="{{ asset('storage/avatars/'.$post->user->avatar) }}" alt="{{ $post->user->name }}" class="img-thumbnail" style="width: 150px">
+                                <img src="{{ asset('storage/'.$post->user->avatar) }}" alt="{{ $post->user->name }}" class="img-thumbnail" style="width: 150px">
                             @else
                                 <img src="{{ asset('user_avatar.png') }}" alt="{{ $post->user->name }}" class="img-thumbnail" style="width: 150px">
                             @endif

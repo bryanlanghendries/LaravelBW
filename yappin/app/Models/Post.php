@@ -19,6 +19,10 @@ class Post extends Model
         return $this->hasMany('App\Models\Like');
     }
 
+    public function comments(){
+        return $this->hasMany('App\Models\Comment');
+    }
+
     public function likedByUser($user)
     {
         return $user && $this->likes->where('user_id', $user->id)->isNotEmpty();

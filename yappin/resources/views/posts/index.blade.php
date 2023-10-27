@@ -42,7 +42,7 @@
                                             <a href="{{ route('profile', $post->user->name) }}"
                                                 style="text-decoration: none; color: inherit;">
                                                 @if ($post->user->avatar)
-                                                    <img src="{{ asset('storage/avatars/' . $post->user->avatar) }}"
+                                                    <img src="{{ asset('storage/' . $post->user->avatar) }}"
                                                         alt="{{ $post->user->name }}" class="img-thumbnail"
                                                         style="width: 150px">
                                                 @else

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -30,6 +31,8 @@ Route::get('user/{name}/edit', [UserController::class, 'edit'])->name('profile.e
 Route::patch('user/{name}', [UserController::class,'update'])->name('profile.update');
 
 Route::get('about', [AboutController::class, 'index'])->name('about');
+
+Route::post('comment/{postid}', [CommentController::class, 'store'])->name('comment');
 
 Auth::routes();
 

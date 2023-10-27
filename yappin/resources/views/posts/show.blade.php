@@ -14,7 +14,7 @@
                                         <a href="{{ route('profile', $post->user->name) }}"
                                             style="text-decoration: none; color: inherit;">
                                             @if ($post->user->avatar)
-                                                <img src="{{ asset('storage/avatars/' . $post->user->avatar) }}"
+                                                <img src="{{ asset('storage/' . $post->user->avatar) }}"
                                                     alt="{{ $post->user->name }}" class="img-thumbnail"
                                                     style="width: 150px">
                                             @else
@@ -86,4 +86,25 @@
                                 </div>
                             </div>
                         </div>
+                        @auth
+                        <div class="mb-3">
+                            <form method="POST" action="{{ route('comment', $post->id) }}">
+                                @csrf
+                                <input type="text" name="content" class="form-control" placeholder="Add a comment">
+                                <button type="submit" class="btn btn-primary">Comment</button>
+                            </form>
+                        </div>
+                        @endauth
+                        
+                        <div class="mt-3">
+                            @foreach ($post->comments as $comment)
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <strong>{{ $comment->user->name }}</strong>
+                                    <p>{{ $comment->content }}</p>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>                        
                     @endsection
+

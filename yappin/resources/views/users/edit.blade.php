@@ -19,7 +19,7 @@
 
                         <div class="text-center mb-4">
                             @if ($user->avatar)
-                            <img src="{{ asset("storage/avatars/$user->avatar") }}" alt="{{ $user->name }}" class="img-thumbnail" style="width: 150px">
+                            <img src="{{ asset("storage/$user->avatar") }}" alt="{{ $user->name }}" class="img-thumbnail" style="width: 150px">
                         @else
                             <img src="{{ asset('user_avatar.png') }}" alt="{{ $user->name }}" class="img-thumbnail" style="width: 150px">
                         @endif
