@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -27,6 +28,8 @@ Route::get('user/{name}', [UserController::class, 'profile'])->name('profile');
 Route::get('user/{name}/edit', [UserController::class, 'edit'])->name('profile.edit');
 
 Route::patch('user/{name}', [UserController::class,'update'])->name('profile.update');
+
+Route::get('about', [AboutController::class, 'index'])->name('about');
 
 Auth::routes();
 
