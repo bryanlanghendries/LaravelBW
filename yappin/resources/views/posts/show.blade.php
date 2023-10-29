@@ -13,13 +13,17 @@
                 <div class="mt-3">
 
                     @auth
-                        <div class="mb-3">
-                            <form method="POST" action="{{ route('comment', $post->id) }}">
-                                @csrf
+
+                        <form method="POST" action="{{ route('comment', $post->id) }}">
+                            @csrf
+                            <div class="mb-3 input-group">
                                 <input type="text" name="content" class="form-control" placeholder="Add a comment">
-                                <button type="submit" class="btn btn-primary">Comment</button>
-                            </form>
-                        </div>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary">Comment</button>
+                                </div>
+                            </div>
+                        </form>
+
                     @endauth
 
                     @foreach ($post->comments as $comment)
@@ -27,6 +31,7 @@
                             <div class="card-body">
                                 <strong>{{ $comment->user->name }}</strong>
                                 <p>{{ $comment->content }}</p>
+                                <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
                             </div>
                         </div>
                     @endforeach
