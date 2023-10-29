@@ -8,8 +8,7 @@
                     <div class="card-header">Yappin News</div>
                     <div class="card-body">
                         @if (session('status'))
-                            <div class="alert
-    alert-success" role="alert"> {{ session('status') }} </div>
+                            <div class="alert alert-success" role="alert"> {{ session('status') }} </div>
                         @endif
 
 
@@ -31,7 +30,7 @@
                         @foreach ($posts as $post)
                             <x-card :post="$post"/>
                         @endforeach
-                        
+
                     </div>
                 </div>
             </div>
