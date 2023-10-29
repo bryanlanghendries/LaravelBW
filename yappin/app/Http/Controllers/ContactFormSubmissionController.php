@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class ContactFormSubmissionController extends Controller
 {
-    //
+    public function index()
+    {
+        return view('contact.index');
+    }
 }
