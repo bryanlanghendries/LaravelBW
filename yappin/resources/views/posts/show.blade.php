@@ -31,7 +31,7 @@
                             <div class="card-body">
                                 <strong>{{ $comment->user->name }}</strong>
                                 <p>{{ $comment->content }}</p>
-                                <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
+                                <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
                             </div>
                         </div>
                     @endforeach

@@ -20,7 +20,7 @@ class Post extends Model
     }
 
     public function comments(){
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany('App\Models\Comment')->orderBy('created_at', 'DESC');
     }
 
     public function likedByUser($user)
