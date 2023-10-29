@@ -10,6 +10,9 @@
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <title>Yappin</title>
 
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/e257f556da.js" crossorigin="anonymous"></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
