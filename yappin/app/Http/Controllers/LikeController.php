@@ -30,13 +30,15 @@ class LikeController extends Controller
             $like->user_id = $user->id;
             $like->post_id = $postId;
             $like->save();
+            return back()->with('status','Yapp Liked !');
         }
 
         else {
             $existingLike->delete();
+            return back()->with('status','Yapp Disliked !');
         }
     
-        return back()->with('status','Yapp Liked !');
+
     }
     
 }
