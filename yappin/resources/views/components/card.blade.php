@@ -35,7 +35,7 @@
                     {{ $post->likes->count() }}
                 </a>
                 <a href="{{ route('posts.show', $post->id) }}" class="btn btn-light">
-                    <i class="far fa-comment"></i> 0 comments
+                    <i class="far fa-comment"></i> {{ $post->comments->count() }} {{ Str::plural('comment', $post->comments->count()) }}
                 </a>
             </div>
             @auth

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Like;
+use App\Models\Comment;
 use Auth;
 
 class PostController extends Controller
@@ -105,6 +106,9 @@ class PostController extends Controller
 
         // Delete all likes from post
         Like::where('post_id', '=', $post->id)->delete();
+
+        // Delete all comments from post
+        Comment::where('post_id', '=', $post->id)->delete();
 
         // Delete post
         $post->delete();
