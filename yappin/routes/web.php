@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ContactFormSubmissionController;
+use App\Http\Controllers\FAQItemController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -34,6 +35,8 @@ Route::patch('user/{name}', [UserController::class,'update'])->name('profile.upd
 Route::get('about', [AboutController::class, 'index'])->name('about');
 
 Route::get('contact', [ContactFormSubmissionController::class, 'index'])->name('contact');
+
+Route::get('faq', [FAQItemController::class, 'index'])->name('faq');
 
 Route::post('comment/{postid}', [CommentController::class, 'store'])->name('comment');
 

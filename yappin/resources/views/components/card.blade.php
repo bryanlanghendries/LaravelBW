@@ -46,7 +46,7 @@
             </div>
             @auth
                 <div>
-                    @if ($post->user_id == Auth::user()->id)
+                    @if ($post->user_id == Auth::user()->id || Auth::user()->is_admin)
                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary mr-2">Edit</a>
                         <form method="POST" action='{{ route('posts.destroy', $post->id) }}' style="display: inline;">
                             @csrf
