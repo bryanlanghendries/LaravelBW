@@ -2,7 +2,7 @@
     <div class="card-body">
         <div class="d-flex align-items-center mb-3">
             <div class="profile-image">
-                <a href="{{ route('profile', $post->user->name) }}" style="margin-right: 8px">
+                <a href="{{ route('profile', $post->user->name) }}" style="margin-right: 8px;">
                     @if ($post->user->avatar)
                         <img src="{{ asset('storage/' . $post->user->avatar) }}" alt="{{ $post->user->name }}"
                             class="rounded-circle" style="width: 50px; height: 50px;">
@@ -12,14 +12,19 @@
                     @endif
                 </a>
             </div>
-            <div class="ml-3">
-                <a href="{{ route('profile', $post->user->name) }}" style="text-decoration: none; font-size: 18px;">
-                    <strong>{{ $post->user->name }}</strong>
-                </a>
-                <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
-                @if ($post->is_edited)
-                    <small class="font-weight-bold"> *edited* </small>
-                @endif
+            <div class="d-flex flex-column">
+                <div>
+                    <a href="{{ route('profile', $post->user->name) }}"
+                        style="text-decoration: none; font-size: 18px; margin-right: 4px;">
+                        <strong>{{ $post->user->name }}</strong>
+                    </a>
+                </div>
+                <div>
+                    <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
+                    @if ($post->is_edited)
+                        <small class="font-weight-bold"> *edited* </small>
+                    @endif
+                </div>
             </div>
         </div>
         <h3>{{ $post->title }}</h3>
@@ -35,7 +40,8 @@
                     {{ $post->likes->count() }}
                 </a>
                 <a href="{{ route('posts.show', $post->id) }}" class="btn btn-light">
-                    <i class="far fa-comment"></i> {{ $post->comments->count() }} {{ Str::plural('comment', $post->comments->count()) }}
+                    <i class="far fa-comment"></i> {{ $post->comments->count() }}
+                    {{ Str::plural('comment', $post->comments->count()) }}
                 </a>
             </div>
             @auth
