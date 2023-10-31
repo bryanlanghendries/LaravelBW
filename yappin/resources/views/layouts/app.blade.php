@@ -42,13 +42,13 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('about') }}">About</a>
+                            <a class="nav-link" href="{{ route('about.index') }}">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+                            <a class="nav-link" href="{{ route('contact.index') }}">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('faq') }}">FAQ</a>
+                            <a class="nav-link" href="{{ route('faq.index') }}">FAQ</a>
                         </li>
 
                     </ul>

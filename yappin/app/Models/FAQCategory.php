@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class FAQCategory extends Model
 {
     use HasFactory;
+
+    public function faqitem(){
+        return $this->hasMany('App\Models\FAQItem')->orderBy('created_at', 'DESC');
+    }
 }

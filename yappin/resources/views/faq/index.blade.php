@@ -13,13 +13,13 @@
 
 
                         @if(Auth::user() && Auth::user()->is_admin)
-                            <form method="POST" action="" class="mb-4" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('faq.store') }}" class="mb-4" enctype="multipart/form-data">
                                 @csrf
                                 <div class="d-flex">
                                     <div class="w-100">
                                         <input type="text" name="question" class="form-control mb-2" placeholder="Question">
                                         <textarea class="form-control" name="answer" placeholder="Answer"></textarea>
-                                        <button type="submit" class="btn btn-primary ml-auto">Submit</button>
+                                        <button type="submit" style="margin-top:4px;" class="btn btn-primary ml-auto">Submit</button>
                                     </div>
                                 </div>
                             </form>
@@ -27,7 +27,9 @@
 
                         @foreach ($faqitems as $faqitem)
 
-
+                        <h1>{{ $faqitem->question }}</h1>
+                        <p> {{ $faqitem->answer }} </p>
+                        <small> {{ $faqitem->category->name }} </small>
 
                         @endforeach
 

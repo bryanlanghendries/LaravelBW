@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('f_a_q_items', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->integer('category_id');
             $table->text('question');
-            $table->text('answer')->nullable();
+            $table->text('answer');
             $table->timestamps();
         });
     }

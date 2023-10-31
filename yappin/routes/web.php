@@ -32,11 +32,13 @@ Route::get('user/{name}/edit', [UserController::class, 'edit'])->name('profile.e
 
 Route::patch('user/{name}', [UserController::class,'update'])->name('profile.update');
 
-Route::get('about', [AboutController::class, 'index'])->name('about');
+Route::get('about', [AboutController::class, 'index'])->name('about.index');
 
-Route::get('contact', [ContactFormSubmissionController::class, 'index'])->name('contact');
+Route::get('contact', [ContactFormSubmissionController::class, 'index'])->name('contact.index');
 
-Route::get('faq', [FAQItemController::class, 'index'])->name('faq');
+Route::get('faq', [FAQItemController::class, 'index'])->name('faq.index');
+
+Route::post('faq', [FAQItemController::class,'store'])->name('faq.store');
 
 Route::post('comment/{postid}', [CommentController::class, 'store'])->name('comment');
 

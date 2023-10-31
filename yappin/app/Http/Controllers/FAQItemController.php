@@ -12,4 +12,15 @@ class FAQItemController extends Controller
         $faqitems = FAQItem::latest()->get();
         return view("faq.index", compact("faqitems"));
     }
+
+    public function store(Request $request) {
+        $faq = new FAQItem;
+        $faq->question = $request->question;
+        $faq->answer = $request->answer;
+        $faq->category_id = 0;
+
+        $faq->save();
+
+        return redirect()->route("faq.index")->with('status', 'FAQ posted');
+    }
 }
