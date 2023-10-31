@@ -50,7 +50,7 @@
                                 <li class="list-group-item">
                                     <a href="{{ route('posts.show', $like->post->id) }}">{{ $like->post->title }}</a>
                                     <p class="ml-2 d-inline">by</p>
-                                    <a href="{{ route('profile', $user->name) }}" class="ml-2">{{ $user->name }}</a>
+                                    <a href="{{ route('profile', $like->post->user->name) }}" class="ml-2">{{ $like->post->user->name }}</a>
                                 </li>
                             @endforeach
                         </ul>
