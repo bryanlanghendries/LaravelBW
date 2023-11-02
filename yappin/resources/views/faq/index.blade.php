@@ -10,43 +10,56 @@
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">{{ session('status') }}</div>
                         @endif
+                        @if (Auth::check() && Auth::user()->is_admin)
+                            <form method="POST" action="{{ route('faq.store') }}" class="mb-4"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                <div class="d-flex">
+                                    <div class="w-100">
+                                        <input type="text" name="question" class="form-control mb-2"
+                                            placeholder="Question">
+                                        <textarea class="form-control" name="answer" placeholder="Answer"></textarea>
 
-                       
-                        <form method="POST" action="{{ route('faq.store') }}" class="mb-4" enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                            <div class="d-flex">
-                                <div class="w-100">
-                                    <input type="text" name="question" class="form-control mb-2" placeholder="Question">
-                                    <textarea class="form-control" name="answer" placeholder="Answer"></textarea>
+                                        <select name="category" class="form-control mb-2">
+                                            <option value="">Select a category</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->name }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
 
-
-                                    <select name="category" class="form-control mb-2">
-                                        <option value="">Select or create a category</option>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->name }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-
-        
-                                    <input type="text" name="new_category" class="form-control mb-2"
-                                        placeholder="New Category">
-
-                                    <button type="submit" style="margin-top:4px;"
-                                        class="btn btn-primary ml-auto">Submit</button>
+                                        <button type="submit" style="margin-top: 4px;"
+                                            class="btn btn-primary ml-auto">Submit</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        @endif
 
-                        @foreach ($faqitems as $faqitem)
-                            <div class="card">
-                                <div class="card-body">
-                                    <h1>{{ $faqitem->question }}</h1>
-                                    <p>{{ $faqitem->answer }}</p>
-                                    <small>{{ $faqitem->category->name }}</small>
-                                </div>
-                            </div>
-                        @endforeach
+                        <h2>Filter by Category:</h2>
+                        @if (Auth::check() && Auth::user()->is_admin)
+                            <form method="POST" action="{{ route('category.store') }}" class="mb-4">
+                                @csrf
+                                <label>Add new category</label>
+                                <input type="text" name="category">
+                                <button type="submit" class="btn btn-primary">Add Category</button>
+                            </form>
+                        @endif
+                        <ul class="list-group">
+                            @foreach ($categories as $category)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="{{ route('faq.category', $category->name) }}">{{ $category->name }}</a>
+                                    @if (Auth::check() && Auth::user()->is_admin)
+                                        <form method="POST" action='{{ route('category.destroy', $category) }}'
+                                            style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+
                     </div>
                 </div>
             </div>

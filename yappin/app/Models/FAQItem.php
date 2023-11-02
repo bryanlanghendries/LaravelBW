@@ -13,6 +13,7 @@ class FAQItem extends Model
         'user_id',
         'question',
         'answer',
+        'category_id'
     ];
 
     public function user()
