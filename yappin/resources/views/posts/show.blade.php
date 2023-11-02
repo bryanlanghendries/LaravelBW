@@ -33,6 +33,9 @@
                                 <strong>{{ $comment->user->name }}</strong>
                                 <p>{{ $comment->content }}</p>
                                 <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                                @if ($post->user->is_admin)
+                                    <i class="fas fa-crown text-warning" title="Admin"></i>
+                                @endif
                             </div>
                         </div>
                     @endforeach

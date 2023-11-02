@@ -18,6 +18,9 @@
                         style="text-decoration: none; font-size: 18px; margin-right: 4px;">
                         <strong>{{ $post->user->name }}</strong>
                     </a>
+                    @if ($post->user->is_admin)
+                        <i class="fas fa-crown text-warning" title="Admin"></i>
+                    @endif
                 </div>
                 <div>
                     <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
