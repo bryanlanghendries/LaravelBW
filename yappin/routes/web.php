@@ -27,6 +27,7 @@ Route::resource('posts', PostController::class);
 Route::get('user/{name}', [UserController::class, 'profile'])->name('profile');
 Route::get('user/{name}/edit', [UserController::class, 'edit'])->name('profile.edit');
 Route::patch('user/{name}', [UserController::class,'update'])->name('profile.update');
+Route::post('user/{name}/promote', [UserController::class, 'promote'])->name('profile.promote');
 
 // About and contact routes
 Route::get('about', function () { return view('about.about'); })->name('about');

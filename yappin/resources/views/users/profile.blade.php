@@ -36,6 +36,12 @@
                             @if (Auth::check() && Auth::user()->id === $user->id)
                                 <a href="{{ route('profile.edit', $user->name) }}" class="btn btn-primary">Edit Profile</a>
                             @endif
+                            @if (Auth::check() && Auth::user()->is_admin && !$user->is_admin)
+                                <form method="POST" action="{{ route('profile.promote', $user->name) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">Promote</button>
+                                </form>
+                            @endif
                         </div>
 
 

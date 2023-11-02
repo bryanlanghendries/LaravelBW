@@ -54,4 +54,23 @@ class UserController extends Controller
         return redirect()->route('profile', ['name' => $user->name])->with('status', 'Profile edited');
     }
 
+    public function promote($name)
+    {
+        // Find the user by name
+        $user = User::where('name', $name)->firstOrFail();
+
+        // Check if the currently logged-in user is an admin
+        if (Auth::check() && Auth::user()->is_admin) {
+            // Update the user's role to admin
+            $user->is_admin = true;
+
+            $user->save();
+
+            return redirect()->route('profile', ['name' => $name])->with('status', 'User promoted to admin.');
+        }
+
+        // Return error status
+        return redirect()->route('profile', ['name' => $name])->with('error', 'You do not have permission to promote this user.');
+    }
+
 }
