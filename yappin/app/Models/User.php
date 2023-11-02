@@ -43,15 +43,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany('App\Models\Post');
     }
 
-    public function likes(){
+    public function likes()
+    {
         return $this->hasMany('App\Models\Like');
     }
 
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany('App\Models\Comment');
     }
 }

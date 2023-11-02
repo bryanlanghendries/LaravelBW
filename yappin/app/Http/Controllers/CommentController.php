@@ -8,20 +8,29 @@ use App\Models\Post;
 use App\Models\Comment;
 
 use Auth;
-use Illuminate\Support\Facades\Redirect;
 
 class CommentController extends Controller
 {
-    public function store($postId, Request $request){
+    public function store($postId, Request $request)
+    {
+        // Check if post exists and fetch it
         $post = Post::findOrFail($postId);
+        // Validate the content
+        $request->validate([
+            'content' => 'required|string',
+        ]);
+
+        // Get the current user
         $user = Auth::user();
-        $comment = new Comment();
 
-        $comment->user_id = $user->id;
-        $comment->post_id = $post->id;
-        $comment->content = $request->get("content");
-        $comment->save();
+        // Create the comment
+        Comment::create([
+            'user_id' => $user->id,
+            'post_id' => $post->id,
+            'content' => $request->input('content'),
+        ]);
 
-        return Redirect::back()->with('status','Comment Posted !');
+        // Redirect to current post with status confirmed
+        return redirect()->route('posts.show', $post)->with('status', 'Comment Posted!');
     }
 }

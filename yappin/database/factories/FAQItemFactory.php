@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class FAQItemFactory extends Factory
 {
@@ -18,7 +17,7 @@ class FAQItemFactory extends Factory
     {
         return [
             'user_id' => fake()->numberBetween(1, 10),
-            'category_id' => fake()->numberBetween(1,3),
+            'category_id' => fake()->numberBetween(1, 3),
             'question' => fake()->sentence,
             'answer' => fake()->paragraph,
         ];

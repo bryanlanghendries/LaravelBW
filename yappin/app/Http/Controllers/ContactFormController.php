@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
-class ContactFormSubmissionController extends Controller
+class ContactFormController extends Controller
 {
     public function index()
     {
