@@ -9,6 +9,12 @@ class FAQItem extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'question',
+        'answer',
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');
