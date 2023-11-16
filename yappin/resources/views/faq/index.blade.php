@@ -14,7 +14,6 @@
                             <form method="POST" action="{{ route('faq.store') }}" class="mb-4"
                                 enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                 <div class="d-flex">
                                     <div class="w-100">
                                         <input type="text" name="question" class="form-control mb-2"

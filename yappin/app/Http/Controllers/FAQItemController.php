@@ -10,6 +10,14 @@ use App\Models\FAQCategory;
 
 class FAQItemController extends Controller
 {
+
+    public function __construct()
+    {
+        // Protect all except index and category
+        $this->middleware('auth', ['except' => ['index', 'category']]);
+    }
+
+
     public function index()
     {
         // Get all faq items ordered by date (DESC)
@@ -33,9 +41,14 @@ class FAQItemController extends Controller
 
     public function store(Request $request)
     {
+
+        // Check if authorized
+        if (!Auth::user()->is_admin) {
+            abort(403);
+        }
+
         // Validate all data
         $request->validate([
-            'user_id' => 'required|integer',
             'question' => 'required|string',
             'answer' => 'required|string',
             'category' => 'required|string',
@@ -46,7 +59,7 @@ class FAQItemController extends Controller
 
         // Create a faqitem
         $faq = FAQItem::create([
-            'user_id' => $request->user_id,
+            'user_id' => Auth::user(),
             'question' => $request->question,
             'answer' => $request->answer,
             'category_id' => $category->id,
@@ -77,6 +90,11 @@ class FAQItemController extends Controller
 
     public function update(Request $request, FAQItem $faqitem)
     {
+        // Check if authorized
+        if (!Auth::user()->is_admin) {
+            abort(403);
+        }
+
         // Update the FAQ item data
         $faqitem->update([
             'question' => $request->input('question'),

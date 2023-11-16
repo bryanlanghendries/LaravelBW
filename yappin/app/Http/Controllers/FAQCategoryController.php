@@ -9,8 +9,20 @@ use Illuminate\Http\Request;
 
 class FAQCategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        // Protect all
+        $this->middleware('auth');
+    }
+
     public function store(Request $request)
     {
+        // Check if authorized
+        if (!Auth::user()->is_admin) {
+            abort(403);
+        }
+
         // Validate the category input
         $request->validate([
             'category' => 'required|string',
