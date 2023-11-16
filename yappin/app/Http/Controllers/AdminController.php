@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Message;
 
 class AdminController extends Controller
 {
@@ -14,6 +15,7 @@ class AdminController extends Controller
     }
     public function index()
     {
-        return view('admin.index');
+        $messages = Message::all();
+        return view('admin.index', compact('messages'));
     }
 }
