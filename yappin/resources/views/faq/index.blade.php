@@ -34,11 +34,16 @@
                             </form>
                         @endif
 
-                        <h2>Filter by Category:</h2>
+                        @if (!Auth::check() || (Auth::guest() && !Auth::user()->is_admin))
+                            <h2>Filter by Category:</h2>
+                        @else
+                            <h2>Add a Category</h2>
+                        @endif
+
+
                         @if (Auth::check() && Auth::user()->is_admin)
                             <form method="POST" action="{{ route('category.store') }}" class="mb-4">
                                 @csrf
-                                <label>Add new category</label>
                                 <input type="text" name="category">
                                 <button type="submit" class="btn btn-primary">Add Category</button>
                             </form>

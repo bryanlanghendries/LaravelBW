@@ -18,7 +18,7 @@
                                 <div class="card-body">
                                     <h3 class="card-title">{{ $faqitem->question }}</h3>
                                     <p class="card-text">{{ $faqitem->answer }}</p>
-                                    <p>{{ $faqitem->user->name }}</p>
+                                    <p>Written by:  {{ $faqitem->user->name }}</p>
 
                                     @if (Auth::check() && Auth::user()->is_admin)
                                         <a href="{{ route('faqitem.edit', $faqitem) }}" class="btn btn-primary">Edit</a>

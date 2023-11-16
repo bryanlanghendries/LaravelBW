@@ -29,13 +29,15 @@ class FAQItemController extends Controller
 
     public function category($category)
     {
+        // get all categories via the controller
+        $categoryController = new FAQCategoryController();
+        $categories = $categoryController->index();
+
         // Get faq items for the specified category
         $faqitems = FAQItem::whereHas('category', function ($query) use ($category) {
             $query->where('name', $category);
         })->get();
 
-        // Get all faq categories
-        $categories = FAQCategory::all();
         return view('faq.category', compact('faqitems', 'categories', 'category'));
     }
 

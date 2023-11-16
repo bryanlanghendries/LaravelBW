@@ -13,7 +13,15 @@ class FAQCategoryController extends Controller
     public function __construct()
     {
         // Protect all
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['index']]);
+    }
+
+    public function index()
+    {
+        // Get all faq categories
+        $categories = FAQCategory::all();
+
+        return $categories;
     }
 
     public function store(Request $request)
@@ -43,6 +51,9 @@ class FAQCategoryController extends Controller
         if (!Auth::user()->is_admin) {
             abort(403);
         }
+
+        // Delete items in the category
+        $category->faqitems()->delete();
 
         // Delete the category
         $category->delete();
