@@ -61,7 +61,7 @@ class FAQItemController extends Controller
 
         // Create a faqitem
         $faq = FAQItem::create([
-            'user_id' => Auth::user(),
+            'user_id' => Auth::user()->id,
             'question' => $request->question,
             'answer' => $request->answer,
             'category_id' => $category->id,
